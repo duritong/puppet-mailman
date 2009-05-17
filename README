@@ -1,0 +1,30 @@
+Mailman:
+========
+
+Variables:
+
+You can set the following variables globally to specify some defaults.
+
+$mailman_password:
+------------------
+
+*Required*
+
+sitewide password, which also be used on lists without a password set.
+
+$mailman_admin:
+---------------
+
+*Required*
+
+Sitewide and default admin for lists.
+
+$mailman_webserver:
+-------------------
+
+Default webserver for lists
+
+$mailman_mailserver:
+-------------------_
+
+Default mailserver for lists
