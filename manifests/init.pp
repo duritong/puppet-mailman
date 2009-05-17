@@ -11,5 +11,8 @@
 
 class mailman {
   include httpd
-  include mailman::base
+  case $operatingsystem {
+    centos: { include mailman::centos }
+    base: { include mailman::base }
+  }
 }
