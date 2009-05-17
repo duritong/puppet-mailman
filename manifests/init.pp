@@ -9,4 +9,7 @@
 # the Free Software Foundation.
 #
 
-class mailman {}
+class mailman {
+  include httpd
+  include mailman::base
+}
