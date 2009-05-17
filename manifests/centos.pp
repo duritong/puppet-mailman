@@ -7,4 +7,7 @@ class mailman::centos inherits mailman::base {
         notify => Service[apache],
         owner => root, group => 0, mode => 0644;
     }
+    File['/usr/local/mailman/Mailman/mm_cfg.py']{
+      path => '/usr/lib/mailman/Mailman/mm_cfg.py',
+    }
 }
