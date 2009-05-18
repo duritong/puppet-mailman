@@ -10,4 +10,8 @@ class mailman::centos inherits mailman::base {
     File['/usr/local/mailman/Mailman/mm_cfg.py']{
       path => '/usr/lib/mailman/Mailman/mm_cfg.py',
     }
+    Exec['set_mailman_adminpw']{
+      command => "/usr/lib/mailman/bin/mmsitepass ${mailman_password}",
+      creates => "/etc/mailman/adm.pw",
+    }
 }

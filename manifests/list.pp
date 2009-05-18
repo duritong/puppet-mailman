@@ -6,6 +6,7 @@ define mailman::list(
   $mailserver = 'absent',
   $webserver = 'absent'
 ){
+  include mailman
 
   if $admin == 'absent' {
     if $mailman_admin {
@@ -43,9 +44,9 @@ define mailman::list(
     ensure => $ensure,
     password => $password,
     admin => $admin,
-    description => $description,
     mailserver => $mailserver,
     webserver => $webserver,
+    require => Package['mailman'],
   }
 
 

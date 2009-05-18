@@ -20,4 +20,21 @@ class mailman::base {
     notify => Service['mailman'],
     owner => root, group => mailman, mode => 0644;
   }
+
+  if $mailman_admin == '' { fail("you have to set \$mailman_admin on $fqdn") }
+  if $mailman_password == '' { fail("you have to set \$mailman_password on $fqdn") }
+
+  mailman::list {'mailman':
+    ensure => 'present',
+    admin => $mailman_admin,
+    password => $mailman_password,
+    require => Package['mailman'],
+    notify => Service['mailman']
+  }
+
+  exec{'set_mailman_adminpw':
+    command => "/usr/local/mailman/bin/mmsitepass ${mailman_password}",
+    creates => "/usr/local/mailman/data/adm.pw",
+    require => Package['mailman'],
+  }
 }
