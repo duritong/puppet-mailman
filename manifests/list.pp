@@ -30,7 +30,7 @@ define mailman::list(
     } else {
       fail("you either have to specify a webserver for ${name} or set \$mailman_webserver globally")
     }
-  } else { $real_mailserver = $mailserver }
+  } else { $real_webserver = $werbserver }
 
   if $password == 'absent' {
     if $mailman_password {
@@ -38,14 +38,14 @@ define mailman::list(
     } else {
       fail("you either have to specify a password for ${name} or set \$mailman_password globally")
     }
-  } else { $real_admin = $admin }
+  } else { $real_password = $password }
 
   maillist{$name:
     ensure => $ensure,
-    password => $password,
-    admin => $admin,
-    mailserver => $mailserver,
-    webserver => $webserver,
+    password => $real_password,
+    admin => $real_admin,
+    mailserver => $real_mailserver,
+    webserver => $real_webserver,
     require => Package['mailman'],
   }
 
