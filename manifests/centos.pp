@@ -1,6 +1,6 @@
 class mailman::centos inherits mailman::base {
     file{'/etc/httpd/conf.d/mailman.conf':
-        source => [ "puppet://$server/files/mailman/${fqdn}/httpd/mailman.conf",
+        source => [ "puppet://$server/files/mailman/httpd/${fqdn}/mailman.conf",
                     "puppet://$server/files/mailman/httpd/mailman.conf",
                     "puppet://$server/mailman/httpd/mailman.conf" ],
         require => Package[apache],
