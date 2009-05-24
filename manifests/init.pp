@@ -1,5 +1,5 @@
 #
-# schleuder module
+# mailman module
 #
 # Copyright 2009, admin(at)immerda.ch
 #
