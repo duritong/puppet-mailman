@@ -1,5 +1,5 @@
 class mailman::munin {
   mailman::plugin{'mailman':
-    config => "group mailman';
+    config => 'group mailman';
   }
 }
