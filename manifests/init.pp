@@ -15,4 +15,7 @@ class mailman {
     centos: { include mailman::centos }
     base: { include mailman::base }
   }
+  if $use_munin {
+    include mailman::munin
+  }
 }
