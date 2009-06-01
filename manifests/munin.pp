@@ -1,5 +1,6 @@
 class mailman::munin {
   munin::plugin{'mailman':
-    config => 'group mailman';
+    config => "timeout 40
+group mailman";
   }
 }
