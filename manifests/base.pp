@@ -12,8 +12,8 @@ class mailman::base {
   }
 
   file{'/usr/local/mailman/Mailman/mm_cfg.py':
-    source => [ "puppet://$server/files/mailman/config/${fqdn}/mm_cfg.py",
-                "puppet://$server/files/mailman/config/mm_cfg.py",
+    source => [ "puppet://$server/modules/site-mailman/config/${fqdn}/mm_cfg.py",
+                "puppet://$server/modules/site-mailman/config/mm_cfg.py",
                 "puppet://$server/modules/mailman/config/${operatingsystem}/mm_cfg.py",
                 "puppet://$server/modules/mailman/config/mm_cfg.py" ],
     require => Package['mailman'],
