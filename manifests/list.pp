@@ -30,7 +30,7 @@ define mailman::list(
     } else {
       fail("you either have to specify a webserver for ${name} or set \$mailman_webserver globally")
     }
-  } else { $real_webserver = $werbserver }
+  } else { $real_webserver = $webserver }
 
   if $password == 'absent' {
     if $mailman_password {
