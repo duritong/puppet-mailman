@@ -9,7 +9,12 @@
 # the Free Software Foundation.
 #
 
-class mailman {
+class mailman(
+  $password = trocla("mailman.root.${fqdn}",'plain'),
+  $admin = hiera('mailman_admin')
+  $mailserver = hiera('mailman_mailserver'),
+  $webserver = hiera('mailman_webserver')
+) {
   include apache
   case $operatingsystem {
     centos: { include mailman::centos }

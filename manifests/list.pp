@@ -8,44 +8,24 @@ define mailman::list(
 ){
   include mailman
 
-  if $admin == 'absent' {
-    if $mailman_admin {
-      $real_admin = $mailman_admin
-    } else {
-      fail("you either have to specify an admin for ${name} or set \$mailman_admin globally")
-    }
-  } else { $real_admin = $admin }
-
-  if $mailserver == 'absent' {
-    if $mailman_mailserver {
-      $real_mailserver = $mailman_mailserver
-    } else {
-      fail("you either have to specify a mailserver for ${name} or set \$mailman_mailserver globally")
-    }
-  } else { $real_mailserver = $mailserver }
-
-  if $webserver == 'absent' {
-    if $mailman_webserver {
-      $real_webserver = $mailman_webserver
-    } else {
-      fail("you either have to specify a webserver for ${name} or set \$mailman_webserver globally")
-    }
-  } else { $real_webserver = $webserver }
-
-  if $password == 'absent' {
-    if $mailman_password {
-      $real_password = $mailman_password
-    } else {
-      fail("you either have to specify a password for ${name} or set \$mailman_password globally")
-    }
-  } else { $real_password = $password }
-
   maillist{$name:
     ensure => $ensure,
-    password => $real_password,
-    admin => $real_admin,
-    mailserver => $real_mailserver,
-    webserver => $real_webserver,
+    password => $password ? {
+      'absent' => $mailman::password,
+      default => $password
+    },
+    admin => $admin ? {
+      'absent' => $mailman::admin,
+      default => $admin
+    },
+    mailserver => $mailserver ? {
+      'absent' => $mailman::mailserver,
+      default => $mailserver
+    },
+    webserver => $webserver ? {
+      'absent' => $mailman::webserver,
+      default => $webserver
+    },
     require => Package['mailman'],
   }
 

@@ -3,28 +3,26 @@ Mailman:
 
 Variables:
 
-You can set the following variables globally to specify some defaults.
+You can set the following variables per class to specify some defaults.
 
-$mailman_password:
+All are required, but can be configured by hiera.
+
+$password:
 ------------------
-
-*Required*
 
 sitewide password, which also be used on lists without a password set.
 
-$mailman_admin:
+$admin:
 ---------------
-
-*Required*
 
 Sitewide and default admin for lists.
 
-$mailman_webserver:
+$webserver:
 -------------------
 
 Default webserver for lists
 
-$mailman_mailserver:
--------------------_
+$mailserver:
+--------------------
 
 Default mailserver for lists
