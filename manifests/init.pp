@@ -10,17 +10,18 @@
 #
 
 class mailman(
-  $password = trocla("mailman.root.${::fqdn}",'plain'),
-  $admin = hiera('mailman_admin'),
-  $mailserver = hiera('mailman_mailserver'),
-  $webserver = hiera('mailman_webserver')
+  $password  , 
+  $admin     , 
+  $mailserver, 
+  $webserver , 
+  $manage_munin = false
 ) {
   include apache
   case $::operatingsystem {
     centos: { include mailman::centos }
     base: { include mailman::base }
   }
-  if hiera('use_munin',false) {
+  if $mailman::manage_munin {
     include mailman::munin
   }
 }
