@@ -13,7 +13,7 @@ class mailman(
   $password  , 
   $admin     , 
   $mailserver, 
-  $webserver , 
+  $webserver, 
   $manage_munin = false
 ) {
   include apache
@@ -21,7 +21,7 @@ class mailman(
     centos: { include mailman::centos }
     base: { include mailman::base }
   }
-  if $mailman::manage_munin {
+  if $manage_munin {
     include mailman::munin
   }
 }

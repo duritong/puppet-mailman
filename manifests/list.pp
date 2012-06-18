@@ -6,8 +6,6 @@ define mailman::list(
   $mailserver = 'absent',
   $webserver = 'absent'
 ){
-  include mailman
-
   maillist{$name:
     ensure => $ensure,
     password => $password ? {
