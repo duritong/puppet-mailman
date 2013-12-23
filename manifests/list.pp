@@ -24,7 +24,8 @@ define mailman::list(
     'absent'  => $mailman::webserver,
     default   => $webserver
   }
-  maillist{$name:
+  $real_name = downcase($name)
+  maillist{$real_name:
     ensure      => $ensure,
     password    => $list_password,
     admin       => $list_admin,
@@ -34,16 +35,16 @@ define mailman::list(
   }
 
   if $description != 'absent' {
-    Maillist[$name]{
+    Maillist[$real_name]{
       description => $description,
     }
   }
 
   if $amcsize {
-    exec{"adjust_admin_chunk_member_size_${name}":
-      command => "mailman_admin_member_chunksize ${amcsize} ${name}",
-      unless  => "echo 'm.admin_member_chunksize' | /usr/lib/mailman/bin/withlist -l ${name} 2>/dev/null | grep -qE '^>>> ${amcsize}$'",
-      require => [ Maillist[$name], File['/usr/local/sbin/mailman_admin_member_chunksize'] ],
+    exec{"adjust_admin_chunk_member_size_${real_name}":
+      command => "mailman_admin_member_chunksize ${amcsize} ${real_name}",
+      unless  => "echo 'm.admin_member_chunksize' | /usr/lib/mailman/bin/withlist -l ${real_name} 2>/dev/null | grep -qE '^>>> ${amcsize}$'",
+      require => [ Maillist[$real_name], File['/usr/local/sbin/mailman_admin_member_chunksize'] ],
     }
   }
 }
