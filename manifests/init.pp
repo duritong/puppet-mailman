@@ -10,18 +10,19 @@
 #
 
 class mailman(
-  $password  , 
-  $admin     , 
-  $mailserver, 
-  $webserver, 
-  $manage_munin = false
+  $password,
+  $admin              = "root@${domain}",
+  $default_email_host = "lists.${domain}",
+  $default_url_host   = "lists.${domain}",
+  $manage_munin       = false,
+  $config             = {},
 ) {
-  include apache
-  case $::operatingsystem {
-    centos: { include mailman::centos }
-    base: { include mailman::base }
+  include ::apache
+  case $::osfamily {
+    'RedHat': { include ::mailman::centos }
+    default: { include ::mailman::base }
   }
   if $manage_munin {
-    include mailman::munin
+    include ::mailman::munin
   }
 }

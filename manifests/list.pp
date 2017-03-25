@@ -1,37 +1,37 @@
 # manage a mailman list
 define mailman::list(
-  $ensure       = present,
-  $password     = 'absent',
-  $admin        = 'absent',
-  $description  = 'absent',
-  $mailserver   = 'absent',
-  $webserver    = 'absent',
-  $amcsize      = undef
+  $ensure      = present,
+  $password    = 'absent',
+  $admin       = 'absent',
+  $description = 'absent',
+  $mailserver  = 'absent',
+  $webserver   = 'absent',
+  $amcsize     = undef
 ){
   $list_password = $password ? {
-    'absent'  => $mailman::password,
-    default   => $password
+    'absent' => $mailman::password,
+    default  => $password
   }
   $list_admin = $admin ? {
-    'absent'  => $mailman::admin,
-    default   => $admin
+    'absent' => $mailman::admin,
+    default  => $admin
   }
   $list_mailserver = $mailserver ? {
-    'absent'  => $mailman::mailserver,
-    default   => $webserver
+    'absent' => $mailman::default_email_host,
+    default  => $webserver
   }
   $list_webserver = $webserver ? {
-    'absent'  => $mailman::webserver,
-    default   => $webserver
+    'absent' => $mailman::default_url_host,
+    default  => $webserver
   }
   $real_name = downcase($name)
   maillist{$real_name:
-    ensure      => $ensure,
-    password    => $list_password,
-    admin       => $list_admin,
-    mailserver  => $list_mailserver,
-    webserver   => $list_webserver,
-    require     => Package['mailman'],
+    ensure     => $ensure,
+    password   => $list_password,
+    admin      => $list_admin,
+    mailserver => $list_mailserver,
+    webserver  => $list_webserver,
+    require    => Package['mailman'],
   }
 
   if $description != 'absent' {
