@@ -2,8 +2,8 @@
 class mailman::centos inherits mailman::base {
   Package<| title == 'apache' |> -> file{'/etc/httpd/conf.d/mailman.conf':
     source => [ "puppet:///modules/site_mailman/httpd/${::fqdn}/mailman.conf",
-                "puppet:///modules/site_mailman/httpd/mailman.conf",
-                "puppet:///modules/mailman/httpd/mailman.conf" ],
+                'puppet:///modules/site_mailman/httpd/mailman.conf',
+                'puppet:///modules/mailman/httpd/mailman.conf' ],
     owner  => root,
     group  => 0,
     mode   => '0644';
@@ -13,6 +13,6 @@ class mailman::centos inherits mailman::base {
   }
   Exec['set_mailman_adminpw']{
     command => "/usr/lib/mailman/bin/mmsitepass ${mailman::password}",
-    creates => "/etc/mailman/adm.pw",
+    creates => '/etc/mailman/adm.pw',
   }
 }
