@@ -18,7 +18,7 @@ define mailman::list(
   }
   $list_mailserver = $mailserver ? {
     'absent' => $mailman::default_email_host,
-    default  => $webserver
+    default  => $mailserver
   }
   $list_webserver = $webserver ? {
     'absent' => $mailman::default_url_host,
