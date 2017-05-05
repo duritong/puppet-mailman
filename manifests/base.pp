@@ -3,7 +3,7 @@ class mailman::base {
 
   package{'mailman':
     ensure => installed,
-  } -> file{'/usr/local/mailman/Mailman/mm_cfg.py':
+  } -> file{'/usr/lib/mailman/Mailman/mm_cfg.py',
     content => template('mailman/config/mm_cfg.py.erb'),
     owner   => root,
     group   => mailman,
@@ -23,8 +23,8 @@ class mailman::base {
   }
 
   exec{'set_mailman_adminpw':
-    command => "/usr/local/mailman/bin/mmsitepass ${mailman::password}",
-    creates => '/usr/local/mailman/data/adm.pw',
+    command => "/usr/lib/mailman/bin/mmsitepass ${mailman::password}",
+    creates => '/etc/mailman/adm.pw',
     require => Package['mailman'],
   }
 

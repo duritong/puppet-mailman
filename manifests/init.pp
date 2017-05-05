@@ -17,8 +17,7 @@ class mailman(
   $manage_munin       = false,
   $config             = {},
 ) {
-  case $::osfamily {
-    'RedHat': { include ::mailman::centos }
+  case $osfamily {
     default: { include ::mailman::base }
   }
   if $manage_munin {
