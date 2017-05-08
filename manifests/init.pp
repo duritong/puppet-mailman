@@ -17,6 +17,7 @@ class mailman(
   $manage_munin       = false,
   $config             = {},
 ) {
+  $site_list = inline_template('<%= @config["MAILMAN_SITE_LIST"] || "mailman" %>')
   case $osfamily {
     default: { include ::mailman::base }
   }

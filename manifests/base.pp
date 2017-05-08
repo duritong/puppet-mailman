@@ -3,10 +3,10 @@ class mailman::base {
 
   package{'mailman':
     ensure => installed,
-  } -> file{'/usr/lib/mailman/Mailman/mm_cfg.py',
+  } -> file{'/usr/lib/mailman/Mailman/mm_cfg.py':
     content => template('mailman/config/mm_cfg.py.erb'),
-    owner   => root,
-    group   => mailman,
+    owner   => 'root',
+    group   => 'mailman',
     mode    => '0644';
   } ~> service{'mailman':
     ensure => running,
@@ -14,7 +14,7 @@ class mailman::base {
   }
 
   # setup the general list
-  mailman::list {'mailman':
+  mailman::list{$mailman::site_list:
     ensure   => 'present',
     admin    => $mailman::admin,
     password => $mailman::password,
