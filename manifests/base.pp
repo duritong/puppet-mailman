@@ -18,14 +18,14 @@ class mailman::base {
     ensure   => 'present',
     admin    => $mailman::admin,
     password => $mailman::password,
-    require  => Package['mailman'],
+    require  => File['/usr/lib/mailman/Mailman/mm_cfg.py'],
     notify   => Service['mailman'],
   }
 
   exec{'set_mailman_adminpw':
     command => "/usr/lib/mailman/bin/mmsitepass ${mailman::password}",
     creates => '/etc/mailman/adm.pw',
-    require => Package['mailman'],
+    require => File['/usr/lib/mailman/Mailman/mm_cfg.py'],
   }
 
   file{'/usr/local/sbin/mailman_admin_member_chunksize':

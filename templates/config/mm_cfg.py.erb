@@ -95,6 +95,15 @@ add_virtualhost(DEFAULT_URL_HOST, DEFAULT_EMAIL_HOST)
 
 MTA = None
 
-<% (c=scope['mailman::config']).keys.sort.each do |k| -%>
-<%= k.upcase %> = <%= c[k] %>
+<%
+    def strfy(s)
+      if s.is_a?(String) && !['Yes','No','None'].include?(s) && !(s =~ /^\d+$/)
+        "'#{s}'"
+      else
+        s
+      end
+    end
+
+    (c=scope['mailman::config']).keys.sort.each do |k| -%>
+<%= k.upcase %> = <%= strfy(c[k]) %>
 <% end -%>
