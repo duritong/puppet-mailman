@@ -35,4 +35,12 @@ class mailman::base {
     group   => 0,
     mode    => '0700';
   }
+
+  if str2bool($selinux) {
+    # workaround a bug
+    file{'/usr/lib/mailman/mail/mailman':
+      seltype => 'mailman_mail_exec_t',
+      require => Package['mailman'],
+    }
+  }
 }
