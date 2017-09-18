@@ -23,7 +23,7 @@ class mailman::base {
   }
 
   exec{'set_mailman_adminpw':
-    command => "/usr/lib/mailman/bin/mmsitepass ${mailman::password}",
+    command => "/usr/lib/mailman/bin/mmsitepass '${mailman::password}'",
     creates => '/etc/mailman/adm.pw',
     require => File['/usr/lib/mailman/Mailman/mm_cfg.py'],
   }
